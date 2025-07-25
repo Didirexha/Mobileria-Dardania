@@ -57,81 +57,120 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="fixed w-full z-50 transition-all duration-300 bg-custom-bg shadow-md">
+    <header className={`fixed w-full z-50 transition-all duration-300 shadow-md ${
+      location.pathname === '/' ? 'bg-[#0000004f]' : 'bg-white'
+    }`}>
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center h-20">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-light tracking-widest">
+          <Link to="/" className={`text-2xl font-light tracking-widest ${
+            location.pathname === '/' ? 'text-white' : 'text-black'
+          }`}>
             DARDANIA<span className="align-super text-xs ml-1">®</span>
           </Link>
 
           {/* Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/" className={`hover:text-gray-600 transition ${location.pathname === '/' ? 'text-gray-900' : 'text-gray-500'}`}>
+          <nav className="hidden md:flex items-center space-x-8 ml-auto mr-8">
+            <Link to="/" className={`hover:text-gray-300 transition ${
+              location.pathname === '/' ? 'text-white' : 'text-black'
+            }`}>
               HOME
             </Link>
             <Link 
               to="/kitchen"
-              className={`hover:text-gray-600 transition ${location.pathname === '/kitchen' ? 'text-gray-900' : 'text-gray-500'}`}
+              className={`hover:text-gray-300 transition ${
+                location.pathname === '/' ? 'text-white' : 'text-black'
+              }`}
             >
               TABLES
             </Link>
             <Link 
               to="/patio"
-              className={`hover:text-gray-600 transition ${location.pathname === '/patio' ? 'text-gray-900' : 'text-gray-500'}`}
+              className={`hover:text-gray-300 transition ${
+                location.pathname === '/' ? 'text-white' : 'text-black'
+              }`}
             >
               PATIO
             </Link>
             <a 
               href="#products-section" 
               onClick={handleProductsClick}
-              className={`hover:text-gray-600 transition ${location.pathname === '/products' ? 'text-gray-900' : 'text-gray-500'}`}
+              className={`hover:text-gray-300 transition ${
+                location.pathname === '/' ? 'text-white' : 'text-black'
+              }`}
             >
               PRODUCTS
             </a>
-            <Link to="/tv-decoration" className={`hover:text-gray-600 transition ${location.pathname === '/tv-decoration' ? 'text-gray-900' : 'text-gray-500'}`}>
+            <Link to="/tv-decoration" className={`hover:text-gray-300 transition ${
+              location.pathname === '/' ? 'text-white' : 'text-black'
+            }`}>
               TV DECORATION
             </Link>
-            <Link to="/contact" className={`hover:text-gray-600 transition ${location.pathname === '/contact' ? 'text-gray-900' : 'text-gray-500'}`}>
+            <Link to="/contact" className={`hover:text-gray-300 transition ${
+              location.pathname === '/' ? 'text-white' : 'text-black'
+            }`}>
               CONTACT
             </Link>
           </nav>
 
           {/* Search Icon */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 relative">
             <button
               onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="text-gray-500 hover:text-gray-600 transition"
+              className={`hover:text-gray-300 transition-all duration-300 ${
+                isSearchOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
+              } ${
+                location.pathname === '/' ? 'text-white' : 'text-black'
+              }`}
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </button>
-          </div>
-        </div>
-
-        {/* Search Bar */}
-        {isSearchOpen && (
-          <div className="absolute top-full left-0 right-0 bg-white shadow-md p-4">
-            <form onSubmit={handleSearch} className="container mx-auto">
-              <div className="flex items-center space-x-4">
+            
+            {/* Inline Search Bar */}
+            <div 
+              ref={searchRef}
+              className={`flex items-center space-x-2 transition-all duration-300 ${
+                isSearchOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+              }`}
+              style={{width: '20%', minWidth: '200px'}}
+            >
+              <form onSubmit={handleSearch} className="flex items-center space-x-2 w-full">
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search products..."
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-gray-500"
+                  className={`flex-1 px-3 py-2 border border-gray-300 rounded-full focus:outline-none focus:border-gray-500 text-sm placeholder-gray-300 ${
+                    location.pathname === '/' ? 'text-white' : 'text-black'
+                  }`}
+                  style={{
+                    backgroundColor: location.pathname === '/' ? '#0000004f' : 'white'
+                  }}
+                  autoFocus
                 />
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-gray-900 text-white rounded-md hover:bg-gray-800 transition"
+                  className="px-3 py-2 bg-gray-900 text-white rounded-full hover:bg-gray-800 transition-colors duration-200 text-sm"
                 >
                   Search
                 </button>
-              </div>
-            </form>
+                <button
+                  type="button"
+                  onClick={() => setIsSearchOpen(false)}
+                  className={`hover:text-gray-300 transition ${
+                    location.pathname === '/' ? 'text-white' : 'text-black'
+                  }`}
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </form>
+            </div>
           </div>
-        )}
+        </div>
       </div>
     </header>
   );

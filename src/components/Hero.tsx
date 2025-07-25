@@ -1,5 +1,5 @@
 import React from 'react';
-import bcg2 from '../images/bcg2.jpg';
+// import homepic1 from '../images/homepic1.webp';
 
 export const Hero: React.FC = () => {
   return (
@@ -7,7 +7,7 @@ export const Hero: React.FC = () => {
       className="relative min-h-screen flex items-end justify-end overflow-hidden"
     >
       <img
-        src={bcg2}
+        src="https://images.unsplash.com/photo-1613685302957-3a6fc45346ef?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt="Kitchen Hero"
         className="absolute inset-0 w-full h-full object-cover"
       />

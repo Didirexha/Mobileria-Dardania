@@ -16,7 +16,7 @@ const Contact: React.FC = () => {
 
     try {
       // Define the target phone number (without the +)
-      const phoneNumber = '38349732127';
+      const phoneNumber = '38349514788';
       
       // Construct the message text with URL-encoded newlines (%0A)
       const text = `Name: ${name} | Email: ${email} | Message: ${message}`;

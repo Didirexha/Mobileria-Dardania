@@ -8,15 +8,22 @@ const app = express();
 
 // Configure CORS
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://127.0.0.1:5173'], // Vite's default port
+  origin: (origin, callback) => {
+    // Allow all localhost ports for development
+    if (!origin || origin.startsWith('http://localhost:')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());
 
-// Connect to local MongoDB
-mongoose.connect('mongodb://localhost:27017/mobileriadardania', {
+// Connect to MongoDB using environment variable
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/mobileriadardania', {
   // Removed deprecated options
   // useNewUrlParser: true,
   // useUnifiedTopology: true,
