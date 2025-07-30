@@ -95,7 +95,7 @@ export const Products: React.FC = () => {
                       VIEW PRODUCTS
                     </button>
                     <button 
-                      className="bg-green-600 text-white px-8 py-3 font-medium tracking-widest rounded-sm shadow hover:bg-green-700 transition flex items-center justify-center"
+                      className="bg-gray-800 text-white px-8 py-3 font-medium tracking-widest rounded-sm shadow hover:bg-gray-900 transition flex items-center justify-center"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleBuyProduct(product);

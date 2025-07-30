@@ -8,7 +8,7 @@ interface Product {
   _id?: string;
   title: string;
   subtitle: string;
-  image: string;
+  images: string[];
   category: string;
 }
 
@@ -68,12 +68,15 @@ const Kitchen: React.FC = () => {
                 className="relative h-[450px] rounded-md overflow-hidden shadow-lg group cursor-pointer"
                 onClick={() => handleProductClick(product._id)}
               >
-                <img
-                  src={product.image.startsWith('http') ? product.image : `http://localhost:5000/uploads/${product.image}`}
+                                <img
+                  src={product.images && product.images.length > 0 
+                    ? (product.images[0].startsWith('http') ? product.images[0] : `http://localhost:5000/uploads/${product.images[0]}`)
+                    : 'https://via.placeholder.com/400x300?text=No+Image'
+                  }
                   alt={product.title}
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                   onError={(e) => {
-                    console.error('Error loading image:', product.image);
+                  onError={(e) => {
+                    console.error('Error loading image:', product.images && product.images[0]);
                     // Fallback image or placeholder
                     e.currentTarget.src = 'https://via.placeholder.com/400x300?text=Image+Not+Found';
                   }}
@@ -98,7 +101,7 @@ const Kitchen: React.FC = () => {
                       VIEW PRODUCTS
                     </button>
                     <button 
-                      className="bg-green-600 text-white px-8 py-3 font-medium tracking-widest rounded-sm shadow hover:bg-green-700 transition flex items-center justify-center"
+                      className="bg-gray-800 text-white px-8 py-3 font-medium tracking-widest rounded-sm shadow hover:bg-gray-900 transition flex items-center justify-center"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleBuyProduct(product);
